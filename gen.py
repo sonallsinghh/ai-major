@@ -1,4 +1,3 @@
-import os
 import fitz
 import requests
 import faiss
@@ -13,6 +12,10 @@ from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
 from typing import Dict, List, TypedDict, Optional
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = FastAPI()
 
@@ -83,8 +86,8 @@ def ask_question(request: AskRequest):
 # ----------------------------
 # Tool-Based Extensions (LangGraph)
 # ----------------------------
-OPENWEATHERMAP_API_KEY = "8bdc28c2e44accfda2a550b7aff0fc14"
-NEWSAPI_API_KEY = "764118ef0c7a4eb79aa855aa292da6be"
+OPENWEATHERMAP_API_KEY = os.getenv('OPENWEATHERMAP_API_KEY')
+NEWSAPI_API_KEY = os.getenv('NEWSAPI_API_KEY')
 
 @tool
 def weather(location: str) -> str:
